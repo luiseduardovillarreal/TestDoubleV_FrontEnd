@@ -39,46 +39,42 @@
             </a>
         </div>
         <div class="form login" style="margin-top: 10%;">            
-            <form>
-                <input type="email" name="email" [(ngModel)]="email" placeholder="Email address" required />
-                <input type="password" name="password" [(ngModel)]="password" placeholder="Password" required />
-                <input type="submit" (click)="Login()" value="Autenticarme" />
-            </form>
+            <input type="email" name="email" [(ngModel)]="email" placeholder="Email address" required />
+            <input type="password" name="password" [(ngModel)]="password" placeholder="Password" required />
+            <input type="button" (click)="Login()" value="Autenticarme" />
         </div>
         <div class="form forgot-password">
             <header style="margin-top: -5px;">Registrarme</header>
-            <form>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <input type="text" name="names" [(ngModel)]="namesNewUser" placeholder="Nombres completos" required />
-                        </div>
-                        <div class="col-md-6">
-                            <input type="text" name="lastNames" [(ngModel)]="lastNamesNewUser" placeholder="Apellidos completos" required />
-                        </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="text" name="names" [(ngModel)]="namesNewUser" placeholder="Nombres completos" required />
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" name="lastNames" [(ngModel)]="lastNamesNewUser" placeholder="Apellidos completos" required />
                     </div>
                 </div>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <input type="password" name="password" [(ngModel)]="passwordNewUser" placeholder="Password" required />
-                        </div>
-                        <div class="col-md-6">
-                            <input type="password" name="retryPassword" [(ngModel)]="retryPasswordNewUser" placeholder="Repita password" required />
-                        </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="password" name="password" [(ngModel)]="passwordNewUser" placeholder="Password" required />
+                    </div>
+                    <div class="col-md-6">
+                        <input type="password" name="retryPassword" [(ngModel)]="retryPasswordNewUser" placeholder="Repita password" required />
                     </div>
                 </div>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <input type="email" name="email" [(ngModel)]="emailNewUser" placeholder="Email address" required />
-                        </div>
-                        <div class="col-md-6">
-                            <input type="submit" (click)="Register()" value="Registrarme" />
-                        </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="email" name="email" [(ngModel)]="emailNewUser" placeholder="Email address" required />
+                    </div>
+                    <div class="col-md-6">
+                        <input type="button" (click)="Register()" value="Registrarme" />
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
     </section>
 </div>

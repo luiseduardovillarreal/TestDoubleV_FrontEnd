@@ -8,6 +8,8 @@ import { InactivateUserRequestDTO } from "../../domain/models/user/inactivate.us
 import { ActivateUserRequestDTO } from "../../domain/models/user/activate.user.request.dto";
 import { ApiIAM } from "../../domain/servers/api-iam";
 import { CreateUserRequestDTO } from "../../domain/models/user/create.user.request.dto";
+import { GetAllUsersForCreditorResponseDTO } from "../../domain/models/user/get.all.users.for.creditor.response.dto";
+import { UUID } from "crypto";
 
 @Injectable({ providedIn: 'root' })
 export class UserRepository implements IUserRepository {
@@ -21,6 +23,10 @@ export class UserRepository implements IUserRepository {
 
   GetAll = () : Observable<CommonResponse<GetAllUsersResponseDTO>> => 
     this.http.get<CommonResponse<GetAllUsersResponseDTO>>(`${this._apiUrl}/get-all`);
+
+  GetAllForCreditor = (idDebtor: UUID) : Observable<CommonResponse<GetAllUsersForCreditorResponseDTO>> => 
+    this.http.get<CommonResponse<GetAllUsersForCreditorResponseDTO>>(
+      `${this._apiUrl}/get-all-for-creditor?idDebtor=${idDebtor}`);
 
   Inactivate = (inactivateUser: InactivateUserRequestDTO) : Observable<CommonResponse<string>> => 
     this.http.put<CommonResponse<string>>(`${this._apiUrl}/inactivate`, inactivateUser);

@@ -1,0 +1,65 @@
+<div class="content-wrapper">
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Deudas /</span> Gestionar deudas</h4>
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="nav nav-pills flex-column flex-md-row mb-3">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="javascript:void(0);" (click)="SaveDebt()">
+                            <i class="bx bx-save me-1"></i>
+                            Guardar deuda
+                        </a>
+                    </li>
+                </ul>
+                <div class="card mb-4">
+                    <hr class="my-0" />
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="mb-3 col-md-6">
+                                <div class="mb-3 col-md-12">
+                                    <label for="amount" class="form-label">Valor de la deuda</label>
+                                    <input class="form-control" type="number" [(ngModel)]="amount"
+                                        (keyup)="OnKeyUp($event)" name="amount" autofocus />
+                                    <label for="amount" *ngIf="amountLbl" class="form-label"
+                                        style="color: red;">Monto de la deuda</label>
+                                </div>
+                                <div class="mb-3 col-md-12">
+                                    <select class="select2 form-select" [(ngModel)]="userSelected"
+                                        (ngModelChange)="SelectedCreditor()">
+                                        <option [ngValue]="undefined">Escoja un creditor</option>
+                                        <option *ngFor="let user of users" [ngValue]="user">
+                                            {{ user.names }} {{ user.lastNames }} - {{ user.email }}
+                                        </option>
+                                    </select>
+                                    <label for="amount" *ngIf="creditorSelectedLbl" class="form-label"
+                                        style="color: red;">Debe seleccionar un creditor</label>
+                                </div>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <div class="row">
+                                    <div class="mb-3 col-md-2">
+                                        <label class="form-label">Deudas</label>
+                                        <div class="demo-inline-spacing">
+                                            <!--<button type="button" class="btn btn-icon btn-primary"
+                                                (click)="AddQuestion()">
+                                                <span class="tf-icons bx bx-plus"></span>
+                                            </button>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-md-12">
+                                <a href="javascript:void(0);" (click)="ClearValidations()">
+                                    <small style="color: dodgerblue;">Limpiar validaciones</small>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-backdrop fade"></div>
+</div>

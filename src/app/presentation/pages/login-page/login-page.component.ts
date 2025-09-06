@@ -96,13 +96,14 @@ export class LoginPageComponent implements OnInit {
       next: (response) => {
         if (response.succeeded) {
           this.notificationFacade.Success(response.message);
-          window.location.href = 'home'
+          this.loadingSpinnerFacade.Hide();
+          //window.location.href = 'login'
         } else {
           this.loadingSpinnerFacade.Hide();
           this.notificationFacade.Error(response.message);
-        }          
+        }
       },
-      error: (error) => {
+      error: () => {
         this.loadingSpinnerFacade.Hide();
         this.notificationFacade.Error('Ocurrió un error al intentar registrarse.');
       }

@@ -19,9 +19,8 @@
                     <tbody class="table-border-bottom-0">
                         <tr *ngFor="let user of users">
                             <td>
-                                <i class="bx bx-show iLink" title="Maneja estado a usuario" style="color: dodgerblue;"></i>
                                 <i *ngIf="!user.isActive" class="bx bx-link-external iLink" title="Reactivar usuario" 
-                                    (click)="ReactivateUser(user.id)" style="color: darkgreen;"></i>
+                                    (click)="ActivateUser(user.id)" style="color: darkgreen;"></i>
                                 <i *ngIf="user.isActive" class="bx bx-x-circle iLink" title="Inactivar usuario" 
                                     (click)="InactivateUser(user.id)" style="color: brown;"></i>
                             </td>

@@ -1,3 +1,4 @@
+import { ManageDebtsPageComponent } from './presentation/pages/manage-debts-page/manage-debts-page.component';
 import { Routes } from '@angular/router';
 import { LoginPageComponent } from './presentation/pages/login-page/login-page.component';
 import { HomePageComponent } from './presentation/pages/home-page/home-page.component';
@@ -17,7 +18,8 @@ export const routes: Routes = [
         children: [
             { path: 'list-users', component: ListUsersPageComponent },
             { path: 'list-debts', component: ListDebtsPageComponent },
-            { path: 'list-pays', component: ListPaysPageComponent }
+            { path: 'list-pays', component: ListPaysPageComponent },
+            { path: 'manage-debts', component: ManageDebtsPageComponent }
         ]
     },
     { path: 'not-found', component: NotFoundPageComponent },

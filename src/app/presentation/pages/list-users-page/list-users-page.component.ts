@@ -17,13 +17,33 @@ import { UserDTO } from '../../../domain/models/user/get.all.users.response.dto'
 })
 export class ListUsersPageComponent {
   users: UserDTO[] | undefined;
-  inactivateUserRequest: InactivateUserRequestDTO = { idUser: '' as UUID };
-  activateUserRequest: ActivateUserRequestDTO = { idUser: '' as UUID };
+  inactivateUserRequest: InactivateUserRequestDTO = { id: '' as UUID };
+  activateUserRequest: ActivateUserRequestDTO = { id: '' as UUID };
  
   constructor(private userFacade: UserFacade,
               private notificationFacade: NotificationFacade,
               private alertFacade: AlertFacade) {
     this.LoadUsers();
+  }
+
+  ActivateUser = async (idUser: UUID) : Promise<void> => {
+    const confirmed = await this.alertFacade.Confirm('¿Está seguro que desea reactivar el usuario?', 'Confirmar acción');
+    if (confirmed) {
+      this.activateUserRequest.id = idUser;
+      this.userFacade.Activate(this.activateUserRequest).subscribe({
+        next: (response) => {
+          if (response.succeeded) {
+            this.LoadUsers();
+            this.notificationFacade.Success(response.message);
+          }
+          else
+            this.notificationFacade.Error(response.message);
+        },
+        error: () => {
+          this.notificationFacade.Error('Ocurrió un error al intentar reactivar el usuario.');
+        }
+      });
+    }
   }
 
   FormatDate = (date: string | Date): string => {
@@ -35,7 +55,7 @@ export class ListUsersPageComponent {
   InactivateUser = async (idUser: UUID) : Promise<void> => {
     const confirmed = await this.alertFacade.Confirm('¿Está seguro que desea inactivar el usuario?', 'Confirmar acción');
     if (confirmed) {
-      this.inactivateUserRequest.idUser = idUser;
+      this.inactivateUserRequest.id = idUser;
       this.userFacade.Inactivate(this.inactivateUserRequest).subscribe({
         next: (response) => {
           if (response.succeeded) {
@@ -55,10 +75,8 @@ export class ListUsersPageComponent {
   LoadUsers = (): void => {
     this.userFacade.GetAll().subscribe({
       next: (response) => {
-        if (response.succeeded){
-          console.log(response);
+        if (response.succeeded)
           this.users = response.data.users;
-        }
         else
           this.notificationFacade.Error(response.message);
       },
@@ -66,26 +84,6 @@ export class ListUsersPageComponent {
         this.notificationFacade.Error('Ocurrió un error al intentar consultar los usuarios.');
       }
     });
-  }
-
-  ReactivateUser = async (idUser: UUID) : Promise<void> => {
-    const confirmed = await this.alertFacade.Confirm('¿Está seguro que desea reactivar el usuario?', 'Confirmar acción');
-    if (confirmed) {
-      this.activateUserRequest.idUser = idUser;
-      this.userFacade.Activate(this.activateUserRequest).subscribe({
-        next: (response) => {
-          if (response.succeeded) {
-            this.LoadUsers();
-            this.notificationFacade.Success(response.message);
-          }
-          else
-            this.notificationFacade.Error(response.message);
-        },
-        error: () => {
-          this.notificationFacade.Error('Ocurrió un error al intentar reactivar el usuario.');
-        }
-      });
-    }
   }
 
   TruncateText = (text: string): string =>
