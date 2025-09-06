@@ -1,0 +1,33 @@
+.layout-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+.layout-container {
+    display: flex;
+    flex: 1;
+}
+
+.layout-page {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+router-outlet + * {
+    flex: 1;
+}
+
+footer.footer {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    margin-top: auto;
+    background-color: #f8f9fa;
+}
+
+.footer-shadow-top-bottom {
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.10), /* sombra arriba */
+                0 4px 10px rgba(0, 0, 0, 0.05);  /* sombra abajo */
+}

@@ -1,0 +1,55 @@
+<div class="container-login d-flex justify-content-center align-items-center vh-100" *ngIf="loadingSpinnerFacade.loading$ | async">
+    <div class="row">
+        <div class="col-md text-center">
+            <div class="demo-inline-spacing">
+                <div class="spinner-grow text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-grow text-secondary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-grow text-success" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-grow text-danger" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-grow text-warning" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-grow text-info" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-grow text-dark" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="login-wrapper" *ngIf="!(loadingSpinnerFacade.loading$ | async)">
+    <section class="wrapper">
+        <div class="app-brand demo">
+            <a href="javascript:void(0);" class="app-brand-link">
+                <span class="app-brand-logo demo">
+                    <img src="../../../../assets/img/favicon/favicon.png" width="35%;" height="auto;">
+                </span>
+            </a>
+        </div>
+        <div class="form login" style="margin-top: 8%;">
+            <header>Iniciar sesión</header>
+            <form>
+                <input type="email" name="email" [(ngModel)]="email" placeholder="Email address" required />
+                <input type="password" name="password" [(ngModel)]="password" placeholder="Password" required />
+                <input type="submit" (click)="Login()" value="Autenticarme" />
+            </form>
+        </div>
+        <div class="form forgot-password">
+            <header>Olvidé contraseña</header>
+            <form>
+                <input type="email" placeholder="Correo electrónico" required />
+                <input type="submit" value="Enviarme correo" />
+            </form>
+        </div>
+    </section>
+</div>

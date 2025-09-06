@@ -1,0 +1,98 @@
+<div class="container-xxl container-p-y" *ngIf="loadingSpinnerFacade.loading$ | async">
+    <div class="misc-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-md">
+                    <div class="demo-inline-spacing">
+                        <div class="spinner-grow text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-secondary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-success" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-danger" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-warning" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-info" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-dark" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="layout-wrapper layout-content-navbar" *ngIf="!(loadingSpinnerFacade.loading$ | async)">
+    <div class="layout-container">
+        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+            <div class="app-brand demo">
+                <a href="javascript:void(0);" class="app-brand-link" routerLink="/home">
+                    <span class="app-brand-logo demo">
+                        <img src="../../../../assets/img/favicon/favicon.png" width="50%;" height="auto;">
+                    </span>
+                </a>
+                <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+                    <i class="bx bx-chevron-left bx-sm align-middle"></i>
+                </a>
+            </div>
+            <ul class="menu-inner py-1" style="margin-top: 5%;">
+                <li class="menu-item {{module.state}} {{module.condition}}" *ngFor="let module of modules">
+                    <a *ngIf="module.name === 'Dashboard'" routerLink="/home" href="javascript:void(0);"
+                        class="menu-link" (click)="ClickInMenu(module.name)">
+                        <i class="{{module.icon}}"></i>
+                        <div data-i18n="Analytics">{{module.name}}</div>
+                    </a>
+                    <a *ngIf="module.name !== 'Dashboard'" href="javascript:void(0);" class="menu-link menu-toggle"
+                        (click)="ClickInMenu(module.name)">
+                        <i class="{{module.icon}}"></i>
+                        <div data-i18n="Account Settings">{{module.name}}</div>
+                    </a>
+                    <ul *ngIf="module.name !== 'Dashboard'" class="menu-sub">
+                        <li class="menu-item {{subModule.state}}" *ngFor="let subModule of module.subModules"
+                            (click)="ClickInSubMenu(subModule.name)">
+                            <a *ngIf="subModule.routerLink === 'under-construction'" href="{{subModule.routerLink}}"
+                                class="menu-link">
+                                <div data-i18n="Account">{{subModule.name}}</div>
+                            </a>
+                            <a *ngIf="subModule.routerLink !== 'under-construction'"
+                                routerLink="{{subModule.routerLink}}" class="menu-link">
+                                <div data-i18n="Account">{{subModule.name}}</div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </aside>
+        <div class="layout-page">
+            <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+                <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                    <i class="bx bx-menu bx-sm"></i>
+                </a>
+            </div>
+            <router-outlet></router-outlet>
+            <footer class="footer bg-light">
+                <div class="container-fluid d-flex flex-md-row flex-column justify-content-between 
+                        align-items-md-center gap-1 container-p-x py-3 footer-shadow-top-bottom">
+                    <div>
+                        <a href="javascript:void(0);" class="footer-text fw-bolder">KLID-Soft</a> ©
+                    </div>
+                    <div>
+                        <a href="javascript:void(0)" class="btn btn-sm btn-outline-danger" (click)="Logout()">
+                            <i class="bx bx-log-out-circle"></i>Cerrar sesión
+                        </a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <div class="layout-overlay layout-menu-toggle"></div>
+</div>

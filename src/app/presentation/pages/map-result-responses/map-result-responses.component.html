@@ -1,0 +1,56 @@
+<div class="content-wrapper">
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="fw-bold py-3 mb-4">
+            <span class="text-muted fw-light">Georreferenciación /</span> Respresentación visual
+        </h4>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <select class="select2 form-select" [(ngModel)]="inquestResultSelected"
+                                    (ngModelChange)="SelectedInquest()">
+                                    <option [ngValue]="undefined">Escoja una encuesta</option>
+                                    <option *ngFor="let inquestResults of inquestsResults" [ngValue]="inquestResults">
+                                        {{ inquestResults.title }}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <select class="select2 form-select" [(ngModel)]="questionInquestResultSelected"
+                                    (ngModelChange)="SelectedQuestion()">
+                                    <option [ngValue]="undefined">Escoja una pregunta</option>
+                                    <option *ngFor="let questionInquestsResults of questionsInquestsResults"
+                                        [ngValue]="questionInquestsResults">
+                                        {{ questionInquestsResults.questionn }}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="card-body">
+                                    <span>{{inquestResultSelected?.description}}</span>
+                                    <div class="error"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="m-0" />
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 1%;" *ngIf="showGraphMap">
+            <div class="mb-3 col-md-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <google-map height="500px" width="100%" [center]="center" [zoom]="15">
+                            <map-marker *ngFor="let marker of markers" [position]="marker.position" [icon]="marker.icon"
+                                [title]="marker.response"></map-marker>
+                        </google-map>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-backdrop fade"></div>
+</div>

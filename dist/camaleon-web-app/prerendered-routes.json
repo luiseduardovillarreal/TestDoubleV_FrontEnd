@@ -1,0 +1,16 @@
+{
+  "routes": [
+    "/already-answered",
+    "/blocked",
+    "/home",
+    "/home/create-inquests",
+    "/home/graphics-inquests",
+    "/home/list-inquests",
+    "/home/map-result-responses",
+    "/login",
+    "/not-found",
+    "/response-inquest",
+    "/thank-you",
+    "/under-construction"
+  ]
+}

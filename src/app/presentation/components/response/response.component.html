@@ -1,0 +1,6 @@
+<div class="mb-3 col-md-12">
+    <input class="form-control" type="text" name="response" 
+        [value]="response()" 
+        (input)="UpdateTextResponse($event)" />
+    <label for="question" *ngIf="IsInvalid() && response() === ''" class="form-label" style="color: red;">La respuesta es obligatoria</label>
+</div>

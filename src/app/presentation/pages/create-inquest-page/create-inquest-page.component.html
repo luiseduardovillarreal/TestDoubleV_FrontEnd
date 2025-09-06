@@ -1,0 +1,85 @@
+<div class="content-wrapper">
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Encuestas /</span> Crear encuestas</h4>
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="nav nav-pills flex-column flex-md-row mb-3">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="javascript:void(0);" (click)="SaveInquest()">
+                            <i class="bx bx-save me-1"></i>
+                            Guardar Encuesta
+                        </a>
+                    </li>
+                </ul>
+                <div class="card mb-4">
+                    <hr class="my-0" />
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="mb-3 col-md-6">
+                                <div class="mb-3 col-md-12">
+                                    <label for="titleInquest" class="form-label">Título de Encuesta</label>
+                                    <input class="form-control" type="text" [(ngModel)]="titleInquest"
+                                        (keyup)="OnKeyUp($event)" name="titleInquest" autofocus />
+                                    <label for="titleInquest" *ngIf="titleInquestLbl" class="form-label"
+                                        style="color: red;">El título es obligatorio</label>
+                                </div>
+                                <div class="mb-3 col-md-12">
+                                    <label for="descriptionInquest" class="form-label">Descripción de
+                                        Encuesta</label>
+                                    <textarea class="form-control" [(ngModel)]="descriptionInquest"
+                                        (keyup)="OnKeyUp($event)" name="descriptionInquest"></textarea>
+                                    <label for="descriptionInquest" *ngIf="descriptionInquestLbl" class="form-label"
+                                        style="color: red;">La descripción es obligatoria</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" [(ngModel)]="inquestExpireForUser"
+                                        name="inquestExpireForUser" (ngModelChange)="InquestExpireForUserSelected()" />
+                                    <label class="form-check-label" for="inquestExpireForUser">
+                                        Seleccione si la encuesta expira para el usuario que la responde
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" [(ngModel)]="inquestOpen"
+                                        name="inquestOpen" (ngModelChange)="InquestOpenSelected()" />
+                                    <label class="form-check-label" for="inquestOpen">
+                                        Seleccione si la encuesta es abierta (No expira)
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <label *ngIf="atLeastOneChecked" class="form-label"
+                                        style="color: red;">Debe especificar en los check algún tipo de encuesta</label>
+                                </div>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <div class="row">
+                                    <div class="mb-3 col-md-2">
+                                        <label class="form-label">Preguntas</label>
+                                        <div class="demo-inline-spacing">
+                                            <button type="button" class="btn btn-icon btn-primary"
+                                                (click)="AddQuestion()">
+                                                <span class="tf-icons bx bx-plus"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 col-md-10">
+                                        <app-question *ngFor="let question of questions; let i = index" [index]="i"
+                                            (remove)="RemoveQuestion($event)">
+                                        </app-question>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-md-12">
+                                <a href="javascript:void(0);" (click)="ClearValidations()">
+                                    <small style="color: dodgerblue;">Limpiar validaciones</small>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-backdrop fade"></div>
+</div>
