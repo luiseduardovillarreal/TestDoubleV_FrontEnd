@@ -1,0 +1,81 @@
+<div class="content-wrapper">
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Encuestas /</span> Listar encuestas</h4>
+        <div class="card">
+            <h5 class="card-header">Información básica</h5>
+            <div class="table-responsive text-nowrap">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th><strong>Acciones</strong></th>
+                            <th><strong>Estado</strong></th>
+                            <th><strong>URL</strong></th>
+                            <th><strong>Título</strong></th>
+                            <th><strong>Descripción</strong></th>
+                            <th><strong>Fecha de creación</strong></th>
+                            <th><strong>Fecha de modificación</strong></th>
+                            <th><strong># de preguntas</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                        <tr *ngFor="let inquest of inquests">
+                            <td>
+                                <i class="bx bx-show iLink" title="Ver información completa" style="color: dodgerblue;"></i>
+                                <i *ngIf="!inquest.isActive" class="bx bx-link-external iLink" title="Reactivar encuesta" 
+                                    (click)="ReactivateInquest(inquest.id)" style="color: darkgreen;"></i>
+                                <i *ngIf="inquest.isActive" class="bx bx-x-circle iLink" title="Inactivar encuesta" 
+                                    (click)="InactivateInquest(inquest.id)" style="color: brown;"></i>
+                            </td>
+                            <td *ngIf="inquest.isActive"><span class="badge bg-label-success">Activa</span></td>                            
+                            <td *ngIf="!inquest.isActive"><span class="badge bg-label-danger">Inactiva</span></td>
+                            <td>
+                                <a class="view" href="{{inquest.url}}" target="_blank">
+                                    {{ TruncateText(inquest.url) }}
+                                </a>
+                            </td>
+                            <td>{{inquest.title}}</td>
+                            <td (click)="ViewDescription(inquest.description)" 
+                                title="Ver descripción"
+                                style="cursor: pointer;"
+                                data-bs-toggle="modal" data-bs-target="#descriptionInquest">
+                                {{ TruncateText(inquest.description) }}
+                            </td>
+                            <td>{{ FormatDate(inquest.createAt) }}</td>
+                            <td>{{ FormatDate(inquest.updateAt) }}</td>
+                            <td>
+                                {{inquest.questions.length}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="content-backdrop fade"></div>
+</div>
+<div class="card-body">
+    <div class="row gy-3">
+        <div class="col-lg-4 col-md-3">
+            <div class="modal fade" id="descriptionInquest" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="descriptionInquestTitle">Descripción de la encuesta</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                                {{description}}
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                Cerrar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

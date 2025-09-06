@@ -32,12 +32,13 @@
         <div class="app-brand demo">
             <a href="javascript:void(0);" class="app-brand-link">
                 <span class="app-brand-logo demo">
-                    <img src="../../../../assets/img/favicon/favicon.png" width="35%;" height="auto;">
+                    <header style="margin-top: -20px;">
+                        <h1>Iniciar sesión</h1>                        
+                    </header>
                 </span>
             </a>
         </div>
-        <div class="form login" style="margin-top: 8%;">
-            <header>Iniciar sesión</header>
+        <div class="form login" style="margin-top: 10%;">            
             <form>
                 <input type="email" name="email" [(ngModel)]="email" placeholder="Email address" required />
                 <input type="password" name="password" [(ngModel)]="password" placeholder="Password" required />
@@ -45,10 +46,38 @@
             </form>
         </div>
         <div class="form forgot-password">
-            <header>Olvidé contraseña</header>
+            <header style="margin-top: -5px;">Registrarme</header>
             <form>
-                <input type="email" placeholder="Correo electrónico" required />
-                <input type="submit" value="Enviarme correo" />
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="text" name="names" [(ngModel)]="namesNewUser" placeholder="Nombres completos" required />
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" name="lastNames" [(ngModel)]="lastNamesNewUser" placeholder="Apellidos completos" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="password" name="password" [(ngModel)]="passwordNewUser" placeholder="Password" required />
+                        </div>
+                        <div class="col-md-6">
+                            <input type="password" name="retryPassword" [(ngModel)]="retryPasswordNewUser" placeholder="Repita password" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="email" name="email" [(ngModel)]="emailNewUser" placeholder="Email address" required />
+                        </div>
+                        <div class="col-md-6">
+                            <input type="submit" (click)="Register()" value="Registrarme" />
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
     </section>

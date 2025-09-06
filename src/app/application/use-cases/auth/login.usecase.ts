@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { LoginRepository } from "../../../infrastructure/repositories/login.repository";
-import { LoginResponse } from "../../../domain/models/login/login.response";
+import { LoginResponseDTO } from "../../../domain/models/login/login.response.dto";
 import { Observable } from "rxjs";
-import { LoginRequest } from "../../../domain/models/login/login.request";
+import { LoginRequestDTO } from "../../../domain/models/login/login.request.dto";
 import { CommonResponse } from "../../../domain/models/common.response";
 
 @Injectable({ providedIn: 'root' })
@@ -10,6 +10,6 @@ export class LoginUseCase {
 
   constructor(private repository: LoginRepository) {}
 
-  Execute = (request: LoginRequest) : Observable<CommonResponse<LoginResponse>> => 
+  Execute = (request: LoginRequestDTO) : Observable<CommonResponse<LoginResponseDTO>> => 
     this.repository.Auth(request);
 }

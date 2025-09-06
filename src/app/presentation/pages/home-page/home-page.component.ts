@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { StorageFacade } from '../../../application/facades/storage.facade';
-import { UserResponse } from '../../../domain/models/login/user.response';
-import { RolResponse } from '../../../domain/models/login/rol.response';
-import { ModuleResponse } from '../../../domain/models/login/module.response';
+import { UserDTO } from '../../../domain/models/login/user.dto';
+import { ModuleDTO } from '../../../domain/models/login/module.dto';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { LoadingSpinnerFacade } from '../../../application/facades/loading.spinner.facade';
@@ -15,9 +14,8 @@ import { LoadingSpinnerFacade } from '../../../application/facades/loading.spinn
   styleUrl: './home-page.component.css'
 })
 export class HomePageComponent {
-  user!: UserResponse | null;
-  rols!: RolResponse[] | undefined;
-  modules!: ModuleResponse[] | undefined;
+  user!: UserDTO | null;
+  modules!: ModuleDTO[] | undefined;
 
   constructor(private storageFacade: StorageFacade,
               public loadingSpinnerFacade: LoadingSpinnerFacade,
@@ -25,7 +23,6 @@ export class HomePageComponent {
 
   async ngOnInit() {
     this.user = await this.storageFacade.GetUserData();
-    this.rols = this.user?.rols;
     this.modules = this.user?.modules;
     this.OpenMenuAndSubMenuSelected();
     this.loadingSpinnerFacade.Hide();
@@ -79,8 +76,8 @@ export class HomePageComponent {
   }
 
   OpenMenuAndSubMenuSelected = () : void => {
-    let activeModule: ModuleResponse | undefined;
-    let activeSubModule: ModuleResponse['subModules'][0] | undefined;
+    let activeModule: ModuleDTO | undefined;
+    let activeSubModule: ModuleDTO['subModules'][0] | undefined;
     activeModule = this.modules?.find(module =>
       module.state === 'active' &&
       module.subModules?.some(sub => sub.state === 'active')

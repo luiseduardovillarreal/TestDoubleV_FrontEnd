@@ -8,16 +8,16 @@ import { GetInquestByIdResponse } from "../../domain/models/inquest/get-by-id/ge
 import { UUID } from "crypto";
 import { GetAllInquestsResponse } from "../../domain/models/inquest/get-all/get.all.inquests.response";
 import { GetAllInquestsResultsResponse } from "../../domain/models/inquest/get-results/get.all.inquests.results.response";
-import { ApiSurvey } from "../../domain/servers/api-survey";
+import { ApiMovement } from "../../domain/servers/api-movement";
 import { InactivateInquestRequest } from "../../domain/models/inquest/inactivate/inactivate.inquest.request";
 import { ReactivateInquestRequest } from "../../domain/models/inquest/reactivate/reactivate.inquest.request";
 
 @Injectable({ providedIn: 'root' })
 export class InquestRepository implements IInquestRepository {
-    private _apiUrl = this.apiSurvey.Domain + '/inquest';
+    private _apiUrl = this.apiMovement.Domain + '/inquest';
 
     constructor(private http: HttpClient, 
-                private apiSurvey: ApiSurvey) {}
+                private apiMovement: ApiMovement) {}
 
     Create = (newInquest: CreateInquestRequest) : Observable<CommonResponse<string>> => 
         this.http.post<CommonResponse<string>>(`${this._apiUrl}/create`, newInquest);

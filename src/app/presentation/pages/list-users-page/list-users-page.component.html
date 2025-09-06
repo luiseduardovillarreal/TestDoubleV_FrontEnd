@@ -1,0 +1,42 @@
+<div class="content-wrapper">
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Usuarios /</span> Listar usuarios</h4>
+        <div class="card">
+            <h5 class="card-header">Información básica</h5>
+            <div class="table-responsive text-nowrap">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th><strong>Nombres completos</strong></th>
+                            <th><strong>Apellidos completos</strong></th>
+                            <th><strong>Email</strong></th>
+                            <th><strong>Fecha de creación</strong></th>
+                            <th><strong>Fecha últ. modificación</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                        <tr *ngFor="let user of users">
+                            <td>
+                                <i class="bx bx-show iLink" title="Maneja estado a usuario" style="color: dodgerblue;"></i>
+                                <i *ngIf="!user.isActive" class="bx bx-link-external iLink" title="Reactivar usuario" 
+                                    (click)="ReactivateUser(user.id)" style="color: darkgreen;"></i>
+                                <i *ngIf="user.isActive" class="bx bx-x-circle iLink" title="Inactivar usuario" 
+                                    (click)="InactivateUser(user.id)" style="color: brown;"></i>
+                            </td>
+                            <td *ngIf="user.isActive"><span class="badge bg-label-success">Activo</span></td>                            
+                            <td *ngIf="!user.isActive"><span class="badge bg-label-danger">Inactivo</span></td>
+                            <td>{{user.names}}</td>
+                            <td>{{user.lastNames}}</td>
+                            <td>{{user.email}}</td>
+                            <td>{{ FormatDate(user.createAt) }}</td>
+                            <td>{{ FormatDate(user.updateAt) }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="content-backdrop fade"></div>
+</div>

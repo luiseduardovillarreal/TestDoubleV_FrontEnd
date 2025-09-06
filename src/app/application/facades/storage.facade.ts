@@ -1,13 +1,13 @@
 import { Injectable } from "@angular/core";
 import { LocalStorageService } from "../../infrastructure/services/local.storage.service";
-import { UserResponse } from "../../domain/models/login/user.response";
+import { UserDTO } from "../../domain/models/login/user.dto";
 
 @Injectable({ providedIn: 'root' })
 export class StorageFacade {
 
     constructor(private localStorage: LocalStorageService) { }
 
-    GetUserData = async (): Promise<UserResponse | null> => 
+    GetUserData = async (): Promise<UserDTO | null> => 
         await this.localStorage.GetUserData();
 
     ClearAuth = () : void => 
@@ -16,6 +16,6 @@ export class StorageFacade {
     GetToken = () : string | null => 
         this.localStorage.GetToken();
 
-    UpdateAuth = (user: UserResponse) : void => 
+    UpdateAuth = (user: UserDTO) : void => 
         this.localStorage.UpdateAuth(user);
 }

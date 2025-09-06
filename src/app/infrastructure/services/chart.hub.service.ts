@@ -4,7 +4,7 @@ import { BehaviorSubject } from "rxjs";
 import { IChartHubService } from "../../domain/services/ichart.hub.service";
 import { NotificationFacade } from "../../application/facades/notification.facade";
 import { UUID } from "crypto";
-import { ApiSurvey } from "../../domain/servers/api-survey";
+import { ApiMovement } from "../../domain/servers/api-movement";
 
 @Injectable({ providedIn: 'root' })
 export class ChartHubService implements IChartHubService {
@@ -12,13 +12,13 @@ export class ChartHubService implements IChartHubService {
     private chartRefreshSubject = new BehaviorSubject<UUID | null>(null);
 
     constructor(private notificationFacade: NotificationFacade,
-                private apiSurvey: ApiSurvey) {
+                private apiMovement: ApiMovement) {
         this.StartConnection();
     }
 
     private StartConnection() {
         this.hubConnection = new signalR.HubConnectionBuilder()
-            .withUrl(this.apiSurvey.Domain + '/chart-hub', {
+            .withUrl(this.apiMovement.Domain + '/chart-hub', {
                 withCredentials: true
             })
             .withAutomaticReconnect()

@@ -1,0 +1,11 @@
+.view {
+    color: dodgerblue;
+    margin-top: -3px;
+    margin-left: 3px;
+    cursor: pointer;
+}
+
+.iLink {
+    margin-left: 2px;
+    cursor: pointer;
+}

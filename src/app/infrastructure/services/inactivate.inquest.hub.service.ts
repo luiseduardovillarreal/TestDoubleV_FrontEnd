@@ -3,7 +3,7 @@ import * as signalR from '@microsoft/signalr';
 import { BehaviorSubject } from "rxjs";
 import { NotificationFacade } from "../../application/facades/notification.facade";
 import { UUID } from "crypto";
-import { ApiSurvey } from "../../domain/servers/api-survey";
+import { ApiMovement } from "../../domain/servers/api-movement";
 import { IInactivateInquestHubService } from "../../domain/services/iinactivate.inquest.hub.service";
 
 @Injectable({ providedIn: 'root' })
@@ -12,13 +12,13 @@ export class InactivateInquestHubService implements IInactivateInquestHubService
     private inquestRefreshSubject = new BehaviorSubject<UUID | null>(null);
 
     constructor(private notificationFacade: NotificationFacade,
-                private apiSurvey: ApiSurvey) {
+                private apiMovement: ApiMovement) {
         this.StartConnection();
     }
 
     private StartConnection() {
         this.hubConnection = new signalR.HubConnectionBuilder()
-            .withUrl(this.apiSurvey.Domain + '/inactivate-inquest-hub', {
+            .withUrl(this.apiMovement.Domain + '/inactivate-inquest-hub', {
                 withCredentials: true
             })
             .withAutomaticReconnect()

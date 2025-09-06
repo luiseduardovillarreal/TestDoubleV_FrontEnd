@@ -1,8 +1,8 @@
 import { Inject, Injectable, PLATFORM_ID } from "@angular/core";
 import { CommonResponse } from "../../domain/models/common.response";
-import { LoginResponse } from "../../domain/models/login/login.response";
+import { LoginResponseDTO } from "../../domain/models/login/login.response.dto";
 import { ILocalStorageService } from "../../domain/services/ilocal.storage.service";
-import { UserResponse } from "../../domain/models/login/user.response";
+import { UserDTO } from "../../domain/models/login/user.dto";
 import { isPlatformBrowser } from "@angular/common";
 
 @Injectable({ providedIn: 'root' })
@@ -20,20 +20,20 @@ export class LocalStorageService implements ILocalStorageService {
     GetToken = () : string | null => 
         localStorage.getItem(this.TOKEN_KEY);
 
-    GetUserData = async () : Promise<UserResponse | null> => {
+    GetUserData = async () : Promise<UserDTO | null> => {
         if (isPlatformBrowser(this.platformId)) {
             const userData = localStorage.getItem(this.USER_DATA_KEY);
-            return userData ? JSON.parse(userData) as UserResponse : null;
+            return userData ? JSON.parse(userData) as UserDTO : null;
         }
         return null;
     }
 
-    SaveAuth = (auth: CommonResponse<LoginResponse>) : void => {
+    SaveAuth = (auth: CommonResponse<LoginResponseDTO>) : void => {
         localStorage.setItem(this.TOKEN_KEY, auth.data.token);
         localStorage.setItem(this.USER_DATA_KEY, JSON.stringify(auth.data.user));
     }
 
-    UpdateAuth = (user: UserResponse) : void => {
+    UpdateAuth = (user: UserDTO) : void => {
         localStorage.removeItem(this.USER_DATA_KEY);
         localStorage.setItem(this.USER_DATA_KEY, JSON.stringify(user));
     }
