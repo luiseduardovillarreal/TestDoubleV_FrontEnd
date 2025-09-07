@@ -1,7 +1,7 @@
 import { Observable } from "rxjs";
 import { CommonResponse } from "../models/common.response";
-import { GetAllPaysResponseDTO } from "../models/pay/get.all.pays.response.dto";
+import { GetAllPaysDebtsResponseDTO } from "../models/pay/get.all.pays.debts.response.dto";
 
 export interface IPayRepository {
-    GetAll() : Observable<CommonResponse<GetAllPaysResponseDTO>>;
+    GetAll() : Observable<CommonResponse<GetAllPaysDebtsResponseDTO>>;
 }

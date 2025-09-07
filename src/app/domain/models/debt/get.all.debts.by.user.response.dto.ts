@@ -1,11 +1,11 @@
 import { UUID } from "crypto";
 
-export interface GetAllDebtsResponseDTO {
+export interface GetAllDebtsByUserResponseDTO {
     debts: DebtDTO[];
 }
 
-export interface DebtDTO {    
-    userDebtor: UserDTO;
+export interface DebtDTO {
+    id: UUID;
     userCreditor: UserDTO;
     amount: number;
     difference: number;

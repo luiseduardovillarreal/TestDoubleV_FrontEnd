@@ -96,8 +96,10 @@ export class LoginPageComponent implements OnInit {
       next: (response) => {
         if (response.succeeded) {
           this.notificationFacade.Success(response.message);
-          this.loadingSpinnerFacade.Hide();
-          //window.location.href = 'login'
+          setTimeout(() => {
+            this.loadingSpinnerFacade.Hide();
+            window.location.reload();
+          }, 3000);
         } else {
           this.loadingSpinnerFacade.Hide();
           this.notificationFacade.Error(response.message);

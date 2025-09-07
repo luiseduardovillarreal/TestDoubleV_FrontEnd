@@ -1,15 +1,18 @@
-import { CommonModule, NgFor } from '@angular/common';
+import { CommonModule, formatDate, NgFor } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NotificationFacade } from '../../../application/facades/notification.facade';
 import { AlertFacade } from '../../../application/facades/alert.facade';
-import { CreateDebtRequestDTO, DebtDTO } from '../../../domain/models/debt/create.debt.request.dto';
+import { CreateDebtRequestDTO, DebtDTO as create_DebtDTO } from '../../../domain/models/debt/create.debt.request.dto';
 import { UUID } from 'crypto';
 import { DebtFacade } from '../../../application/facades/debt.facade';
 import { StorageFacade } from '../../../application/facades/storage.facade';
 import { UserFacade } from '../../../application/facades/user.facade';
 import { UserDTO } from '../../../domain/models/user/get.all.users.for.creditor.response.dto';
+import { DebtDTO as getAllByUser_DebtDTO } from '../../../domain/models/debt/get.all.debts.by.user.response.dto';
+import { CreatePayDebtRequestDTO, PayDebtDTO } from '../../../domain/models/pay/create.pay.debt.request.dto';
+import { PayFacade } from '../../../application/facades/pay.facade';
 
 @Component({
   selector: 'app-manage-debts-page',
@@ -23,6 +26,7 @@ export class ManageDebtsPageComponent {
   amountLbl: boolean = false;
   creditorSelectedLbl: boolean = false;
   users: UserDTO[] | undefined;
+  debts: getAllByUser_DebtDTO[] | undefined;
   userSelected: UserDTO | undefined;
   createDebtRequest: CreateDebtRequestDTO = {
     debt: {
@@ -30,15 +34,18 @@ export class ManageDebtsPageComponent {
       idUserCreditor: '' as UUID,
       amount: 0,
       difference: 0
-    } as DebtDTO
+    } as create_DebtDTO
   };
+  createPayDebtRequest: CreatePayDebtRequestDTO = { pay: {} as PayDebtDTO };
 
   constructor(private storageFacade: StorageFacade,
               private userFacade: UserFacade,
               private debtFacade: DebtFacade,
+              private payFacade: PayFacade,
               private notificationFacade: NotificationFacade,
               private alertFacade: AlertFacade) {
-    this.LoadUsersForCreditor();          
+    this.LoadUsersForCreditor();
+    this.LoadDebtsForUser();
   }
 
   private ClearAll = () => {
@@ -52,7 +59,48 @@ export class ManageDebtsPageComponent {
     this.creditorSelectedLbl = false;
   }
 
-  LoadUsersForCreditor = async () : Promise<void> => {
+  FormatDate = (date: string | Date): string => {
+    if (!date || new Date(date).getFullYear() <= 1)
+      return 'No disponible';
+    return formatDate(date, 'dd-MM-yyyy HH:mm:ss', 'en-US');
+  }
+
+  DeleteDebt = async (idDebt: UUID) : Promise<void> => {
+    const confirmed = await this.alertFacade.Confirm('¿Está seguro que desea eliminar la deuda?', 'Confirmar acción');
+    if (confirmed) {
+      this.debtFacade.Delete(idDebt).subscribe({
+        next: (response) => {
+          if (response.succeeded) {
+            this.LoadDebtsForUser();
+            this.notificationFacade.Success(response.message);
+          }
+          else
+            this.notificationFacade.Error(response.message);
+        },
+        error: () => {
+          this.notificationFacade.Error('Ocurrió un error al intentar eliminar la deuda.');
+        }
+      });
+    }
+  }
+
+  private LoadDebtsForUser = async () : Promise<void> => {
+    const user = await this.storageFacade.GetUserData();
+    this.debtFacade.GetAllByUser(user?.id as UUID).subscribe({
+      next: (response) => {
+        if (response.succeeded){
+          this.debts = response.data.debts;
+        }
+        else
+          this.notificationFacade.Error(response.message);
+      },
+      error: () => {
+        this.notificationFacade.Error('Ocurrió un error al intentar consultar las deudas.');
+      }
+    });
+  }
+
+  private LoadUsersForCreditor = async () : Promise<void> => {
     const user = await this.storageFacade.GetUserData();
     this.userFacade.GetAllForCreditor(user?.id as UUID).subscribe({
       next: (response) => {
@@ -78,6 +126,33 @@ export class ManageDebtsPageComponent {
     }
   }
 
+  Pay = async (idDebt: UUID) => {
+    const payAmount = await this.alertFacade.Pay();
+    if (payAmount || payAmount > 0) {
+      this.createPayDebtRequest.pay.idDebt = idDebt;
+      this.createPayDebtRequest.pay.amount = payAmount;
+      this.payFacade.Create(this.createPayDebtRequest).subscribe({
+        next: (response) => {
+          if (response.succeeded) {
+            this.ClearAll();
+            this.notificationFacade.Success(response.message);
+            setTimeout(() => {
+              window.location.reload();
+            }, 3000);
+          } else {
+            this.notificationFacade.Error(response.message);
+          }
+        },
+        error: () => {
+          this.notificationFacade.Error('Ocurrió un error al intentar registrar la deuda.');
+        }
+      });           
+    } else {
+      this.notificationFacade.Error('El monto a pagar debe ser mayor a 0');
+      return;
+    }   
+  }
+
   SaveDebt = async () => {
     if (!this.amount || this.amount <= 0)
       this.amountLbl = true;
@@ -100,6 +175,9 @@ export class ManageDebtsPageComponent {
             if (response.succeeded) {
               this.ClearAll();
               this.notificationFacade.Success(response.message);
+              setTimeout(() => {
+                window.location.reload();
+              }, 3000);
             } else {
               this.notificationFacade.Error(response.message);
             }

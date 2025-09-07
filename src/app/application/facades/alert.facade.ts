@@ -24,6 +24,29 @@ export class AlertFacade {
         });
     }
 
+    async Pay() {
+        const { value: payAmount } = await Swal.fire({
+            title: 'Registrar pago',
+            input: 'number',
+            inputLabel: 'Ingrese el monto a pagar',
+            showCancelButton: true,
+            confirmButtonText: 'Pagar',
+            cancelButtonText: 'Cancelar',
+            inputValidator: (value) => {
+                if (!value || isNaN(Number(value)) || Number(value) <= 0) {
+                    return 'Por favor ingrese un valor válido mayor a 0';
+                }
+                return null;
+            }
+        });
+        if (payAmount) {
+            const numericValue = Number(payAmount);
+            return numericValue;
+        } else {
+            return 0;
+        }
+    }
+
     Success(message: string, title: string) {
         Swal.fire({
             title: title,

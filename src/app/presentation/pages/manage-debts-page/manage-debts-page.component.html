@@ -15,7 +15,7 @@
                     <hr class="my-0" />
                     <div class="card-body">
                         <div class="row">
-                            <div class="mb-3 col-md-6">
+                            <div class="mb-3 col-md-4">
                                 <div class="mb-3 col-md-12">
                                     <label for="amount" class="form-label">Valor de la deuda</label>
                                     <input class="form-control" type="number" [(ngModel)]="amount"
@@ -35,15 +35,41 @@
                                         style="color: red;">Debe seleccionar un creditor</label>
                                 </div>
                             </div>
-                            <div class="mb-3 col-md-6">
-                                <div class="row">
-                                    <div class="mb-3 col-md-2">
-                                        <label class="form-label">Deudas</label>
-                                        <div class="demo-inline-spacing">
-                                            <!--<button type="button" class="btn btn-icon btn-primary"
-                                                (click)="AddQuestion()">
-                                                <span class="tf-icons bx bx-plus"></span>
-                                            </button>-->
+                            <div class="mb-3 col-md-8">
+                                <div class="mb-3 col-md-12">
+                                    <label class="form-label">Deudas</label>
+                                    <div class="demo-inline-spacing">
+                                        <div class="table-responsive text-nowrap">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th><strong>Creditor</strong></th>
+                                                        <th><strong>Prestado</strong></th>
+                                                        <th><strong>Deuda a hoy</strong></th>
+                                                        <th><strong>F. creación</strong></th>
+                                                        <th><strong>F. últ. modificación</strong></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="table-border-bottom-0">
+                                                    <tr *ngFor="let debt of debts">
+                                                        <td>
+                                                            <i class="bx bx-x-circle iLink" title="Eliminar deuda" 
+                                                                (click)="DeleteDebt(debt.id)" style="color: brown;"></i>
+                                                            <i *ngIf="debt.difference > 0" class="bx bx-money iLink" title="Abonar/pagar deuda" 
+                                                                (click)="Pay(debt.id)" style="color: dodgerblue;"></i>
+                                                        </td>
+                                                        <td *ngIf="debt.difference > 0"><span class="badge bg-label-success">Activa</span></td>                            
+                                                        <td *ngIf="debt.difference == 0"><span class="badge bg-label-danger">Pagada</span></td>
+                                                        <td>{{debt.userCreditor.names}} {{debt.userCreditor.lastNames}} - {{debt.userCreditor.email}}</td>
+                                                        <td>{{debt.amount}}</td>
+                                                        <td>{{debt.difference}}</td>
+                                                        <td>{{ FormatDate(debt.createAt) }}</td>
+                                                        <td>{{ FormatDate(debt.updateAt) }}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
