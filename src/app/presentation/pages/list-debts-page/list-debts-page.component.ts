@@ -1,16 +1,18 @@
 import { Component } from '@angular/core';
-import { formatDate, NgFor, NgIf } from '@angular/common';
+import { CommonModule, formatDate, NgFor, NgIf } from '@angular/common';
 import { NotificationFacade } from '../../../application/facades/notification.facade';
 import { AlertFacade } from '../../../application/facades/alert.facade';
 import { UUID } from 'crypto';
 import { DebtFacade } from '../../../application/facades/debt.facade';
 import { DebtDTO } from '../../../domain/models/debt/get.all.debts.response.dto';
 import { ActivateDebtRequestDTO } from '../../../domain/models/debt/activate.debt.request.dto';
+import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-list-inquest-page',
+  selector: 'app-list-debts-page',
   standalone: true,
-  imports: [NgFor, NgIf],
+  imports: [NgFor, NgIf, RouterModule, CommonModule, FormsModule],
   templateUrl: './list-debts-page.component.html',
   styleUrl: './list-debts-page.component.css'
 })
@@ -54,7 +56,6 @@ export class ListDebtsPageComponent {
     this.debtFacade.GetAll().subscribe({
       next: (response) => {
         if (response.succeeded){
-          console.log(response);
           this.debts = response.data.debts;
         }          
         else

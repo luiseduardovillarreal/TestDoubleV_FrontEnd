@@ -63,8 +63,8 @@
                                                         <td *ngIf="debt.difference > 0"><span class="badge bg-label-success">Vigente</span></td>
                                                         <td *ngIf="debt.difference == 0"><span class="badge bg-label-danger">Pagada</span></td>
                                                         <td>{{debt.userCreditor.names}} {{debt.userCreditor.lastNames}} - {{debt.userCreditor.email}}</td>
-                                                        <td>{{debt.amount}}</td>
-                                                        <td>{{debt.difference}}</td>
+                                                        <td>{{ debt.amount | currency:'COP':'symbol':'1.0-0' }}</td>
+                                                        <td>{{ debt.difference | currency:'COP':'symbol':'1.0-0' }}</td>
                                                         <td>{{ FormatDate(debt.createAt) }}</td>
                                                         <td>{{ FormatDate(debt.updateAt) }}</td>
                                                     </tr>

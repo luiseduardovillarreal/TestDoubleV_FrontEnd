@@ -9,7 +9,7 @@ import { ActivateUserRequestDTO } from '../../../domain/models/user/activate.use
 import { UserDTO } from '../../../domain/models/user/get.all.users.response.dto';
 
 @Component({
-  selector: 'app-list-inquest-page',
+  selector: 'app-list-users-page',
   standalone: true,
   imports: [NgFor, NgIf],
   templateUrl: './list-users-page.component.html',
