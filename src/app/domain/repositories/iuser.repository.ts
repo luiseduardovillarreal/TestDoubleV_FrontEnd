@@ -8,9 +8,9 @@ import { GetAllUsersForCreditorResponseDTO } from "../models/user/get.all.users.
 import { UUID } from "crypto";
 
 export interface IUserRepository {
+    Activate(activateUser: ActivateUserRequestDTO) : Observable<CommonResponse<string>>;
     Create(newUser: CreateUserRequestDTO) : Observable<CommonResponse<string>>;
     GetAll() : Observable<CommonResponse<GetAllUsersResponseDTO>>;
     GetAllForCreditor(idDebtor: UUID) : Observable<CommonResponse<GetAllUsersForCreditorResponseDTO>>;
-    Inactivate(inactivateUser: InactivateUserRequestDTO) : Observable<CommonResponse<string>>;
-    Activate(activateUser: ActivateUserRequestDTO) : Observable<CommonResponse<string>>;
+    Inactivate(inactivateUser: InactivateUserRequestDTO) : Observable<CommonResponse<string>>;    
 }

@@ -4,7 +4,8 @@ export interface GetAllDebtsResponseDTO {
     debts: DebtDTO[];
 }
 
-export interface DebtDTO {    
+export interface DebtDTO {
+    id: UUID;   
     userDebtor: UserDTO;
     userCreditor: UserDTO;
     amount: number;

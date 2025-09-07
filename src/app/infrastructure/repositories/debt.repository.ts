@@ -8,6 +8,7 @@ import { IDebtRepository } from "../../domain/repositories/idebt.repository";
 import { CreateDebtRequestDTO } from "../../domain/models/debt/create.debt.request.dto";
 import { GetAllDebtsByUserResponseDTO } from "../../domain/models/debt/get.all.debts.by.user.response.dto";
 import { UUID } from "crypto";
+import { ActivateDebtRequestDTO } from "../../domain/models/debt/activate.debt.request.dto";
 
 @Injectable({ providedIn: 'root' })
 export class DebtRepository implements IDebtRepository {
@@ -15,7 +16,10 @@ export class DebtRepository implements IDebtRepository {
 
   constructor(private http: HttpClient, 
               private apiMovement: ApiMovement) {}
-              
+  
+  Activate = (activateDebt: ActivateDebtRequestDTO) : Observable<CommonResponse<string>> => 
+    this.http.put<CommonResponse<string>>(`${this._apiUrl}/activate`, activateDebt);
+
   Create = (newDebt: CreateDebtRequestDTO) : Observable<CommonResponse<string>> => 
     this.http.post<CommonResponse<string>>(`${this._apiUrl}/create`, newDebt);
 

@@ -60,7 +60,7 @@
                                                             <i *ngIf="debt.difference > 0" class="bx bx-money iLink" title="Abonar/pagar deuda" 
                                                                 (click)="Pay(debt.id)" style="color: dodgerblue;"></i>
                                                         </td>
-                                                        <td *ngIf="debt.difference > 0"><span class="badge bg-label-success">Activa</span></td>                            
+                                                        <td *ngIf="debt.difference > 0"><span class="badge bg-label-success">Vigente</span></td>
                                                         <td *ngIf="debt.difference == 0"><span class="badge bg-label-danger">Pagada</span></td>
                                                         <td>{{debt.userCreditor.names}} {{debt.userCreditor.lastNames}} - {{debt.userCreditor.email}}</td>
                                                         <td>{{debt.amount}}</td>

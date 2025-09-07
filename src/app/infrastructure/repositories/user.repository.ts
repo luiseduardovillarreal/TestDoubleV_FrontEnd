@@ -18,6 +18,9 @@ export class UserRepository implements IUserRepository {
   constructor(private http: HttpClient,
               private apiIAM: ApiIAM) {}
 
+  Activate = (activateUser: ActivateUserRequestDTO) : Observable<CommonResponse<string>> => 
+    this.http.put<CommonResponse<string>>(`${this._apiUrl}/activate`, activateUser);
+
   Create = (newUser: CreateUserRequestDTO) : Observable<CommonResponse<string>> => 
     this.http.post<CommonResponse<string>>(`${this._apiUrl}/create`, newUser);
 
@@ -29,8 +32,5 @@ export class UserRepository implements IUserRepository {
       `${this._apiUrl}/get-all-for-creditor?idDebtor=${idDebtor}`);
 
   Inactivate = (inactivateUser: InactivateUserRequestDTO) : Observable<CommonResponse<string>> => 
-    this.http.put<CommonResponse<string>>(`${this._apiUrl}/inactivate`, inactivateUser);
-  
-  Activate = (activateUser: ActivateUserRequestDTO) : Observable<CommonResponse<string>> => 
-    this.http.put<CommonResponse<string>>(`${this._apiUrl}/activate`, activateUser);
+    this.http.put<CommonResponse<string>>(`${this._apiUrl}/inactivate`, inactivateUser);  
 }

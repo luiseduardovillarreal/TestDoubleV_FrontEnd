@@ -4,8 +4,10 @@ import { GetAllDebtsResponseDTO } from "../models/debt/get.all.debts.response.dt
 import { CreateDebtRequestDTO } from "../models/debt/create.debt.request.dto";
 import { UUID } from "crypto";
 import { GetAllDebtsByUserResponseDTO } from "../models/debt/get.all.debts.by.user.response.dto";
+import { ActivateDebtRequestDTO } from "../models/debt/activate.debt.request.dto";
 
 export interface IDebtRepository {
+    Activate(activateDebt: ActivateDebtRequestDTO) : Observable<CommonResponse<string>>;
     Create(newDebt: CreateDebtRequestDTO) : Observable<CommonResponse<string>>;
     Delete(idDebt: UUID) : Observable<CommonResponse<string>>;
     GetAll() : Observable<CommonResponse<GetAllDebtsResponseDTO>>;
